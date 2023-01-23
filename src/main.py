@@ -9,9 +9,7 @@ import openai
 openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
-def dig_deep(talk_theme: str) -> str:
-    talk_theme = f"{talk_theme} についてどう思いますか？"
-
+def completion(talk_theme: str) -> str:
     # 返答を3つ用意してランダムに一つの答えを選ぶ
     max = 3
     resp: Any = openai.Completion.create(
@@ -20,7 +18,7 @@ def dig_deep(talk_theme: str) -> str:
         prompt=talk_theme,
         n=max,
         stop=None,
-        temperature=0.7,
+        temperature=0.5,
     )
 
     i = random.randint(0, max - 1)
@@ -32,16 +30,23 @@ def dig_deep(talk_theme: str) -> str:
     return answer
 
 
+def dig_deep(talk_theme: str, suffix: str) -> str:
+    theme = f"{talk_theme} {suffix}"
+    return completion(theme)
+
+
 def main(theme: str) -> None:
-    ask = theme
-    ans = ""
-    for _ in range(50):
-        temp_ans = dig_deep(ask)
+    ans = dig_deep(theme, "についてどう思いますか？")
+    ask = ans
+    time.sleep(1)
+    suffix = ["について他の意見はありますか？", "について反論してください。", "を要約してください。"]
+    for i in range(50):
+        temp_ans = dig_deep(ask, suffix[i % len(suffix)])
         if temp_ans == "":
             break
         ans = temp_ans
         ask = temp_ans
-        time.sleep(3)
+        time.sleep(1)
     print(f"{theme} とは、「{ans}」 である")
 
 
