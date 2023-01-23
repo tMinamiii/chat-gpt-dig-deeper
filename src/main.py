@@ -14,7 +14,7 @@ def completion(talk_theme: str) -> str:
     max = 3
     resp: Any = openai.Completion.create(
         engine="text-davinci-003",
-        max_tokens=500,
+        max_tokens=1000,
         prompt=talk_theme,
         n=max,
         stop=None,
@@ -39,8 +39,8 @@ def main(theme: str) -> None:
     ans = dig_deep(theme, "についてどう思いますか？")
     ask = ans
     time.sleep(1)
-    suffix = ["について他の意見はありますか？", "について反論してください。", "を要約してください。"]
-    for i in range(50):
+    suffix = ["について更に意見はありますか？", "について詳細に述べてください。", "を要約してください。"]
+    for i in range(11):
         temp_ans = dig_deep(ask, suffix[i % len(suffix)])
         if temp_ans == "":
             break
