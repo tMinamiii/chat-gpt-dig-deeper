@@ -10,14 +10,14 @@ openai.api_key = os.environ["OPENAI_API_KEY"]
 
 
 def dig_deep(talk_theme: str) -> str:
-    talk_thema = f"{talk_theme} についてどう思いますか？"
+    talk_theme = f"{talk_theme} についてどう思いますか？"
 
     # 返答を3つ用意してランダムに一つの答えを選ぶ
     max = 3
     resp: Any = openai.Completion.create(
         engine="text-davinci-003",
         max_tokens=500,
-        prompt=talk_thema,
+        prompt=talk_theme,
         n=max,
         stop=None,
         temperature=0.7,
@@ -26,7 +26,7 @@ def dig_deep(talk_theme: str) -> str:
     i = random.randint(0, max - 1)
     answer = str(resp["choices"][i]["text"]).strip()
     if answer != "":
-        print(talk_thema)
+        print(talk_theme)
         print("  ->  " + answer)
     print()
     return answer
