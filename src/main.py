@@ -37,16 +37,15 @@ def dig_deep(talk_theme: str, suffix: str) -> str:
 
 def main(theme: str) -> None:
     ans = dig_deep(theme, "についてどう思いますか？")
-    ask = ans
     time.sleep(1)
-    suffix = ["について更に意見はありますか？", "について詳細に述べてください。", "を要約してください。"]
-    for i in range(11):
-        temp_ans = dig_deep(ask, suffix[i % len(suffix)])
+    for _ in range(12):
+        temp_ans = dig_deep(ans, "について更に意見はありますか？")
         if temp_ans == "":
             break
         ans = temp_ans
-        ask = temp_ans
         time.sleep(1)
+
+    ans = dig_deep(theme, "を要約してください。")
     print(f"{theme} とは、「{ans}」 である")
 
 
