@@ -4,6 +4,9 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+openai = "*"
+
+[dev-packages]
 black = "*"
 flake8 = "*"
 ipython = "*"
@@ -13,9 +16,6 @@ pre-commit = "*"
 pydocstyle = "*"
 pytest = "*"
 pytest-cov = "*"
-openai = "*"
-
-[dev-packages]
 
 [requires]
 python_version = "3.11"
