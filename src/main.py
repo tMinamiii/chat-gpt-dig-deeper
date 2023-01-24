@@ -35,10 +35,11 @@ def dig_deep(talk_theme: str, suffix: str) -> str:
     return completion(theme)
 
 
-def main(theme: str) -> None:
+def main() -> None:
+    theme = sys.argv[1]
     ans = dig_deep(theme, "についてどう思いますか？")
     time.sleep(1)
-    for _ in range(12):
+    for _ in range(11):
         temp_ans = dig_deep(ans, "について更に意見はありますか？")
         if temp_ans == "":
             break
@@ -50,5 +51,4 @@ def main(theme: str) -> None:
 
 
 if __name__ == "__main__":
-    theme = sys.argv[1]
-    main(theme)
+    main()
