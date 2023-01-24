@@ -39,7 +39,7 @@ def main() -> None:
     theme = sys.argv[1]
     ans = dig_deep(theme, "についてどう思いますか？")
     time.sleep(1)
-    for _ in range(11):
+    for _ in range(10):
         temp_ans = dig_deep(ans, "について更に意見はありますか？")
         if temp_ans == "":
             break
